@@ -1,12 +1,15 @@
 import './App.css'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 
 function App() {
 
   return (
     <>
-      <div className='text-3xl font-bold underline flex justify-center items-center'>
-        <p>Hello</p>
-      </div>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateCalendar />
+      </LocalizationProvider>
     </>
   )
 }
