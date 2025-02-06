@@ -12,6 +12,7 @@ jobs:
     permissions:
       id-token: write # Required for OIDC token
       contents: write # Required to deploy to GitHub Pages
+      pages: write
 
     steps:
     - name: Checkout Repository
