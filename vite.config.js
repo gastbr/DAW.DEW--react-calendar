@@ -4,6 +4,11 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    headers: {
+      'Content-Type': 'application/javascript',
+    },
+  },
   plugins: [
     react(),
     tailwindcss()
