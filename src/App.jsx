@@ -1,18 +1,11 @@
-import './App.css'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { DayCalendarSkeleton } from '@mui/x-date-pickers';
+import CalendarApp from "./components/CalendarApp"
+import './components/CalendarApp.css'
 
-function App() {
-
+const App = () => {
   return (
-    <>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateCalendar />
-        <DayCalendarSkeleton />
-      </LocalizationProvider>
-    </>
+    <div className="container-html">
+      <CalendarApp />
+    </div>
   )
 }
 
