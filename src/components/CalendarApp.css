@@ -104,7 +104,7 @@
     text-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.2);
 }
 
-.current-date {
+.current-day {
     background-color: #ef9011;
     border-radius: 50%;
     box-shadow: 0 0 1.5rem 1rem rgba(239, 144, 17, 0.3);
@@ -130,7 +130,6 @@
     justify-content: center;
     align-items: center;
     row-gap: 2rem;
-    display: none;
 }
 
 .time-input {
