@@ -20,4 +20,11 @@ html {
     display: grid;
     place-items: center;
     perspective: 100rem;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 600px) {
+    html {
+        font-size: 50%;
+    }
 }
