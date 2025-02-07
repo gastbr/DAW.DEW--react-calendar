@@ -1,4 +1,5 @@
 import { useState } from "react"
+import EventPopup from "./eventPopup";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
@@ -25,14 +26,19 @@ const CalendarApp = () => {
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     const firstDayOfMonth = new Date(currentYear, currentMonth, 0).getDay();
 
-    const prevMonth = () => {
+    const seePrevMonth = () => {
         setCurrentMonth((prevMonth) => (prevMonth === 0 ? 11 : prevMonth - 1));
         setCurrentYear((prevYear) => (currentMonth === 0 ? prevYear - 1 : prevYear));
     }
 
-    const nextMonth = () => {
+    const seeNextMonth = () => {
         setCurrentMonth((prevMonth) => (prevMonth === 11 ? 0 : prevMonth + 1));
         setCurrentYear((prevYear) => (currentMonth === 11 ? prevYear + 1 : prevYear));
+    }
+
+    const seeCurrentMonth = () => {
+        setCurrentMonth(currentDate.getMonth());
+        setCurrentYear(currentDate.getFullYear());
     }
 
     const handleDayClick = (day) => {
@@ -108,16 +114,28 @@ const CalendarApp = () => {
         );
     }
 
+    const formatDate = (day) => {
+        let className = "";
+        if (isSameDay(new Date(currentYear, currentMonth, day + 1), selectedDate)) {
+            className = "selected-day";
+        }
+        if (isSameDay(new Date(currentYear, currentMonth, day + 1), currentDate)) {
+            className = "current-day";
+        }
+        return className;
+    }
+
     return (
         <div className="calendar-app">
             <div className="calendar">
-                <h1 className="heading">Calendar</h1>
+                <h1 className="heading">Calendario</h1>
                 <div className="navigate-date">
                     <h2 className="month">{monthsOfYear[currentMonth]}</h2>
                     <h2 className="year">{currentYear}</h2>
                     <div className="buttons">
-                        <i className="bx bx-chevron-left" onClick={prevMonth}></i>
-                        <i className="bx bx-chevron-right" onClick={nextMonth}></i>
+                        <i className="bx bxs-arrow-from-top" onClick={seeCurrentMonth}></i>
+                        <i className="bx bx-chevron-left" onClick={seePrevMonth}></i>
+                        <i className="bx bx-chevron-right" onClick={seeNextMonth}></i>
                     </div>
                 </div>
                 <div className="weekdays">
@@ -130,28 +148,21 @@ const CalendarApp = () => {
                         <span key={`empty-${index}`} />
                     ))}
                     {[...Array(daysInMonth).keys()].map((day) => (
-                        <span className={
-                            day + 1 === currentDate.getDate() &&
-                                currentMonth === currentDate.getMonth() &&
-                                currentYear === currentDate.getFullYear()
-                                ? "current-day"
-                                : ""
-                        } onClick={() => handleDayClick(day + 1)} key={day + 1}>{day + 1}</span>
+                        <span className={formatDate(day)} onClick={() => handleDayClick(day + 1)} key={day + 1}>{day + 1}</span>
                     ))}
                 </div>
             </div>
             <div className="events">
                 {showEventPopup && (
-                    <div className="event-popup">
-                        <div className="time-input">
-                            <div className="event-popup-time">Time</div>
-                            <input className="hours" type="number" name="hours" min={0} max={23} value={eventTime.hours} onChange={handleTimeChange} />
-                            <input className="minutes" type="number" name="minutes" min={0} max={59} value={eventTime.minutes} onChange={handleTimeChange} />
-                        </div>
-                        <textarea name="event" id="" placeholder="Enter event text (max 60 characters)" value={eventText} onChange={(e) => { if (e.target.value.length <= 60) setEventText(e.target.value) }}></textarea>
-                        <button className="event-popup-btn" onClick={handleSubmitEvent}>{editingEvent ? 'Edit Event' : 'Add Event'}</button>
-                        <button className="close-event-popup" onClick={() => setShowEventPopup(false)}><i className="bx bx-x"></i></button>
-                    </div>
+                    <EventPopup
+                        eventText={eventText}
+                        setEventText={setEventText}
+                        eventTime={eventTime}
+                        handleTimeChange={handleTimeChange}
+                        editingEvent={editingEvent}
+                        setShowEventPopup={setShowEventPopup}
+                        handleSubmitEvent={handleSubmitEvent}
+                    />
                 )}
                 {events.map((event, index) => (
                     <div key={index} className="event">
