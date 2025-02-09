@@ -7,7 +7,7 @@ const App = () => {
     <Router>
       <EventProvider>
         <Routes>
-          <Route path="/DAW.DEW--react-calendar/" element={<CalendarApp />} />
+          <Route path="/DAW.DEW--react-calendar/*" element={<CalendarApp />} />
         </Routes>
       </EventProvider>
     </Router>
