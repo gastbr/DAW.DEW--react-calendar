@@ -1,8 +1,8 @@
 import { capitalize } from "@mui/material";
-import { useFetch } from "../utils/helpers";
+import { useFetch } from "../utils/helpers.jsx";
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import Lotties from "./lotties";
+import Lotties from "./lotties.jsx";
 
 export const Pokemons = () => {
     const { data, loading, error } = useFetch("https://pokeapi.co/api/v2/pokemon?limit=10");

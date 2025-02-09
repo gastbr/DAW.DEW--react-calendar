@@ -1,6 +1,6 @@
 import { createContext, useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { fakeEvents } from '../context/fakeEvents';
+import { fakeEvents } from '../context/fakeEvents.jsx';
 
 const EventContext = createContext();
 
