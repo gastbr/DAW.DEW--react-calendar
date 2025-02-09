@@ -8,6 +8,7 @@ import timezone from 'dayjs/plugin/timezone';
 import 'dayjs/locale/es';
 import { formatDate, isSameDay } from './utils/helpers';
 import { Pokemons } from './components/pokemons';
+import Footer from './components/footer';
 dayjs.locale('es');
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -187,6 +188,7 @@ const CalendarApp = () => {
                     })}
                 </div>
             </div>
+            <Footer />
         </>
     );
 };
