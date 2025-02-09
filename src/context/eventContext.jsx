@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect, useContext } from 'react';
+import { createContext, useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { fakeEvents } from '../context/fakeEvents.jsx';
 import { isSameDay } from '../utils/helpers.jsx';
