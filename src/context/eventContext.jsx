@@ -30,7 +30,7 @@ const EventProvider = ({ children }) => {
 
     const [events, dispatch] = useReducer(eventReducer, [], () => {
         const localData = localStorage.getItem('events');
-        return JSON.parse(localData).length > 0 ? JSON.parse(localData) : fakeEvents;
+        return localData !== "[]" ? JSON.parse(localData) : fakeEvents;
     });
 
     useEffect(() => {
