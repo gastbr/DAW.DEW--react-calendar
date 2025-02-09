@@ -5,7 +5,7 @@ import { EventContext } from '../context/eventContext.jsx';
 import EventPopup from './eventPopup.jsx';
 
 // Componente EventList para mostrar la lista de eventos
-const EventList = ({ filteredEvents }) => {
+const EventList = ({ filteredEvents, setEditingEvent }) => {
     const {
         searchQuery,
         setSearchParams,
@@ -20,7 +20,7 @@ const EventList = ({ filteredEvents }) => {
         setSelectedDate
     } = useContext(CalendarContext);
 
-    const { handleSearch, handleSubmitEvent, handleEditEvent, handleDeleteEvent, dispatch, setEditingEvent } = useContext(EventContext);
+    const { handleSearch, handleSubmitEvent, handleEditEvent, handleDeleteEvent, dispatch } = useContext(EventContext);
 
     const monthsOfYear = [
         'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',

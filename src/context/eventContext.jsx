@@ -1,13 +1,13 @@
-import { createContext, useReducer, useEffect } from 'react';
+import { createContext, useReducer, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { fakeEvents } from '../context/fakeEvents.jsx';
 import { isSameDay } from '../utils/helpers.jsx';
-
 // Crear un contexto para eventos
 const EventContext = createContext();
 
 // Función reductora para gestionar el estado de los eventos
 const eventReducer = (state, action) => {
+    if (!state) return [];
     switch (action.type) {
         case 'ADD_EVENT':
             return [...state, action.payload];
@@ -24,6 +24,7 @@ const eventReducer = (state, action) => {
     }
 };
 
+
 // Componente EventProvider para proporcionar el contexto de eventos a los hijos
 const EventProvider = ({ children }) => {
 
@@ -35,7 +36,7 @@ const EventProvider = ({ children }) => {
     // Inicializar el estado de los eventos con datos de localStorage o fakeEvents
     const [events, dispatch] = useReducer(eventReducer, [], () => {
         const localData = localStorage.getItem('events');
-        return localData !== "[]" ? JSON.parse(localData) : fakeEvents;
+        return localData && localData !== "[]" ? JSON.parse(localData) : fakeEvents;
     });
 
     // Guardar eventos en localStorage siempre que cambien

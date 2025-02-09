@@ -1,4 +1,4 @@
-import { useMemo, useContext } from 'react';
+import { useMemo, useContext, useState, useEffect } from 'react';
 import { EventContext } from './context/eventContext.jsx';
 import { CalendarProvider, CalendarContext } from './context/CalendarContext.jsx';
 import dayjs from 'dayjs';
@@ -17,6 +17,18 @@ dayjs.tz.setDefault('Atlantic/Canary');
 
 // Componente principal de la aplicación
 const CalendarApp = () => {
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        const handleLoad = () => setIsLoaded(true);
+        window.addEventListener('load', handleLoad);
+        return () => window.removeEventListener('load', handleLoad);
+    }, []);
+
+    if (!isLoaded) {
+        return <div className="text-center loading mt-10 text-2xl text-stone-500 font-bold">Cargando calendario...</div>;
+    }
+
     return (
         <CalendarProvider>
             <CalendarAppContent />
@@ -27,10 +39,11 @@ const CalendarApp = () => {
 // Componente de contenido para CalendarApp
 const CalendarAppContent = () => {
     const { events } = useContext(EventContext);
-    const { searchQuery } = useContext(CalendarContext);
+    const { searchQuery, setEditingEvent } = useContext(CalendarContext);
 
     // Filtrar eventos en función de la consulta de búsqueda
     const filteredEvents = useMemo(() => {
+        if (!events) return [];
         return events.filter((event) =>
             event.text.toLowerCase().includes(searchQuery.toLowerCase())
         );
@@ -41,7 +54,7 @@ const CalendarAppContent = () => {
             <Pokemons />
             <div className="calendar-app">
                 <Calendar />
-                <EventList filteredEvents={filteredEvents} />
+                <EventList filteredEvents={filteredEvents} setEditingEvent={setEditingEvent} />
             </div>
             <Footer />
         </>

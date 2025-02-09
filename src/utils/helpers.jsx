@@ -10,6 +10,7 @@ export const isSameDay = (date1, date2) => {
 };
 
 export const formatDate = (date, selectedDate, currentDate, events) => {
+    if (!events) return '';
     if (isSameDay(date, selectedDate)) return "selected-day";
     if (isSameDay(date, currentDate)) return "current-day";
     if (events.some(event => isSameDay(new Date(event.date), date))) return "event-day";
