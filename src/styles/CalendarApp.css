@@ -110,7 +110,11 @@
     text-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.2);
     padding: .5rem;
     border-radius: 50%;
-    border: 0.1rem solid rgba(0, 0, 0, .5);
+}
+
+.days span:hover {
+    background-color: #3a4553;
+    transition: background-color 0.3s ease-in-out;
 }
 
 .current-day {
@@ -375,7 +379,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 1rem;
+    right: 3rem;
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
@@ -385,6 +389,11 @@
     font-size: 1.6rem;
     color: #eee;
     cursor: pointer;
+}
+
+.event-buttons i:hover {
+    color: #ccc;
+    transform: scale(1.5) translateY(-0.1rem);
 }
 
 aside {
