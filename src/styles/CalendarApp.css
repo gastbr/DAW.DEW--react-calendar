@@ -120,6 +120,11 @@
     box-shadow: 0 0 1.5rem 1rem rgba(0, 163, 255, 0.3);
 }
 
+.event-day {
+    border-radius: 30%;
+    box-shadow: 0 0 .7rem 0.1rem rgba(201, 127, 26, .8) inset;
+}
+
 .events {
     width: 60%;
     height: 100%;
@@ -449,4 +454,15 @@
     .calendar-app {
         aspect-ratio: 3/2;
     }
+}
+
+aside {
+    width: 20rem;
+    height: 100vh;
+    background-color: #161b22;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+    display: flex;
 }

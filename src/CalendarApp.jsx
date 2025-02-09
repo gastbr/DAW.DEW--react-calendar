@@ -7,6 +7,7 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import 'dayjs/locale/es';
 import { formatDate, isSameDay } from './utils/helpers';
+import { Pokemons } from './components/pokemons';
 dayjs.locale('es');
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -68,6 +69,8 @@ const CalendarApp = () => {
             setEventTime({ hours: '00', minutes: '00' });
             setEventText('');
             setEditingEvent(null);
+        } else {
+            alert('No puedes crear eventos en el pasado');
         }
     };
 
@@ -107,81 +110,84 @@ const CalendarApp = () => {
     };
 
     return (
-        <div className="calendar-app">
-            <div className="calendar">
-                <h1 className="heading">Calendario</h1>
-                <div className="navigate-date">
-                    <h2 className="month">{monthsOfYear[currentMonth]}</h2>
-                    <h2 className="year">{currentYear}</h2>
-                    <div className="buttons">
-                        <i className="bx bxs-arrow-from-top" onClick={seeCurrentMonth}></i>
-                        <i className="bx bx-chevron-left" onClick={seePrevMonth}></i>
-                        <i className="bx bx-chevron-right" onClick={seeNextMonth}></i>
+        <>
+            <Pokemons />
+            <div className="calendar-app">
+                <div className="calendar">
+                    <h1 className="heading">Calendario</h1>
+                    <div className="navigate-date">
+                        <h2 className="month">{monthsOfYear[currentMonth]}</h2>
+                        <h2 className="year">{currentYear}</h2>
+                        <div className="buttons">
+                            <i className="bx bxs-arrow-from-top" onClick={seeCurrentMonth}></i>
+                            <i className="bx bx-chevron-left" onClick={seePrevMonth}></i>
+                            <i className="bx bx-chevron-right" onClick={seeNextMonth}></i>
+                        </div>
+                    </div>
+                    <div className="weekdays">
+                        {daysOfWeek.map((day) => (
+                            <span key={day}>{day}</span>
+                        ))}
+                    </div>
+                    <div className="days">
+                        {[...Array(firstDayOfMonth).keys()].map((_, index) => (
+                            <span key={`empty-${index}`} />
+                        ))}
+                        {[...Array(daysInMonth).keys()].map((day) => (
+                            <span
+                                className={formatDate(new Date(currentYear, currentMonth, day + 1), selectedDate, currentDate, events)}
+                                onClick={() => handleDayClick(day + 1)}
+                                key={day + 1}
+                            >
+                                {day + 1}
+                            </span>
+                        ))}
                     </div>
                 </div>
-                <div className="weekdays">
-                    {daysOfWeek.map((day) => (
-                        <span key={day}>{day}</span>
-                    ))}
-                </div>
-                <div className="days">
-                    {[...Array(firstDayOfMonth).keys()].map((_, index) => (
-                        <span key={`empty-${index}`} />
-                    ))}
-                    {[...Array(daysInMonth).keys()].map((day) => (
-                        <span
-                            className={formatDate(new Date(currentYear, currentMonth, day + 1), selectedDate, currentDate)}
-                            onClick={() => handleDayClick(day + 1)}
-                            key={day + 1}
-                        >
-                            {day + 1}
-                        </span>
-                    ))}
-                </div>
-            </div>
-            <div className="events">
-                <input
-                    className="search"
-                    type="text"
-                    placeholder="Buscar eventos..."
-                    value={searchQuery}
-                    onChange={handleSearch}
-                />
-                {showEventPopup && (
-                    <EventPopup
-                        eventText={eventText}
-                        setEventText={setEventText}
-                        eventTime={eventTime}
-                        handleTimeChange={(e) => {
-                            const { name, value } = e.target;
-                            setEventTime((prevTime) => ({
-                                ...prevTime,
-                                [name]: value.padStart(2, '0'),
-                            }));
-                        }}
-                        editingEvent={editingEvent}
-                        setShowEventPopup={setShowEventPopup}
-                        handleSubmitEvent={handleSubmitEvent}
+                <div className="events">
+                    <input
+                        className="search"
+                        type="text"
+                        placeholder="Buscar eventos..."
+                        value={searchQuery}
+                        onChange={handleSearch}
                     />
-                )}
-                {filteredEvents.map((event) => {
-                    const eventDate = new Date(event.date);
-                    return (
-                        <div key={event.id} className="event">
-                            <div className="event-date-wrapper">
-                                <div className="event-date">{`${monthsOfYear[eventDate.getMonth()]} ${eventDate.getDate()} ${eventDate.getFullYear()}`}</div>
-                                <div className="event-time">{event.time}</div>
+                    {showEventPopup && (
+                        <EventPopup
+                            eventText={eventText}
+                            setEventText={setEventText}
+                            eventTime={eventTime}
+                            handleTimeChange={(e) => {
+                                const { name, value } = e.target;
+                                setEventTime((prevTime) => ({
+                                    ...prevTime,
+                                    [name]: value.padStart(2, '0'),
+                                }));
+                            }}
+                            editingEvent={editingEvent}
+                            setShowEventPopup={setShowEventPopup}
+                            handleSubmitEvent={handleSubmitEvent}
+                        />
+                    )}
+                    {filteredEvents.map((event) => {
+                        const eventDate = new Date(event.date);
+                        return (
+                            <div key={event.id} className="event">
+                                <div className="event-date-wrapper">
+                                    <div className="event-date">{`${monthsOfYear[eventDate.getMonth()]} ${eventDate.getDate()} ${eventDate.getFullYear()}`}</div>
+                                    <div className="event-time">{event.time}</div>
+                                </div>
+                                <div className="event-text">{event.text}</div>
+                                <div className="event-buttons">
+                                    <i className="bx bxs-edit-alt" onClick={() => handleEditEvent(event)}></i>
+                                    <i className="bx bxs-message-alt-x" onClick={() => handleDeleteEvent(event.id)}></i>
+                                </div>
                             </div>
-                            <div className="event-text">{event.text}</div>
-                            <div className="event-buttons">
-                                <i className="bx bxs-edit-alt" onClick={() => handleEditEvent(event)}></i>
-                                <i className="bx bxs-message-alt-x" onClick={() => handleDeleteEvent(event.id)}></i>
-                            </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
