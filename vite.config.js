@@ -8,4 +8,5 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
+  base: 'https://gastbr.github.io/DAW.DEW--react-calendar/'
 })
