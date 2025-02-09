@@ -47,4 +47,10 @@ export const fakeEvents = [
         time: "13:00",
         text: "Taller de Desarrollo Personal para empleados",
     },
+    {
+        id: 1739084290600,
+        date: "2025-08-28T00:00:00.000Z",
+        time: "10:00",
+        text: "Reunión de equipo para discutir actualizaciones del proyecto",
+    },
 ];
