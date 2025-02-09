@@ -1,12 +1,17 @@
-import CalendarApp from "./components/CalendarApp"
-import './components/CalendarApp.css'
+import { BrowserRouter as Router, Route, Routes } from 'react-router';
+import { EventProvider } from './context/eventContext';
+import CalendarApp from './CalendarApp';
 
 const App = () => {
   return (
-    <div className="container-html">
-      <CalendarApp />
-    </div>
-  )
-}
+    <Router>
+      <EventProvider>
+        <Routes>
+          <Route path="/" element={<CalendarApp />} />
+        </Routes>
+      </EventProvider>
+    </Router>
+  );
+};
 
-export default App
+export default App;

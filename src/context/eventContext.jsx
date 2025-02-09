@@ -1,5 +1,6 @@
 import { createContext, useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { fakeEvents } from '../context/fakeEvents';
 
 const EventContext = createContext();
 
@@ -29,7 +30,7 @@ const EventProvider = ({ children }) => {
 
     const [events, dispatch] = useReducer(eventReducer, [], () => {
         const localData = localStorage.getItem('events');
-        return localData ? JSON.parse(localData) : [];
+        return JSON.parse(localData).length > 0 ? JSON.parse(localData) : fakeEvents;
     });
 
     useEffect(() => {

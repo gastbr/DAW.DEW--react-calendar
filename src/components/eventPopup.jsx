@@ -91,8 +91,8 @@ const EventPopup = ({
                         if (e.target.value.length <= 60) setEventText(e.target.value);
                     }}
                 />
-                <div className="character-counter">
-                    {60 - eventText.length} caracteres restantes
+                <div className="character-counter text-stone-400">
+                    {eventText.length > 0 ? `${60 - eventText.length} caracteres restantes` : ""}
                 </div>
                 <button className="event-popup-btn" onClick={handleSubmitEvent}>
                     Confirmar
