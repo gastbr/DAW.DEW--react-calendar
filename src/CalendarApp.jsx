@@ -1,6 +1,6 @@
 import { useState, useContext, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import EventPopup from './components/EventPopup';
+import EventPopup from './components/eventPopup';
 import { EventContext } from './context/eventContext';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
