@@ -132,7 +132,7 @@
 
 .event-day {
     border-radius: 30%;
-    box-shadow: 0 0 .7rem 0.1rem rgba(201, 127, 26, .8) inset;
+    box-shadow: 0 0 .7rem 0.1rem rgba(0, 163, 255, 0.8) inset;
 }
 
 .events {
@@ -426,7 +426,7 @@ aside {
 }
 
 footer {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;

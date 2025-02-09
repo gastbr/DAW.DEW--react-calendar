@@ -1,7 +1,8 @@
+// Componente Footer para mostrar el pie de página de la aplicación
 export default function Footer() {
     return (
         <footer className="bg-blue-800 text-white py-6 mt-16 text-center">
-            <p>&copy; 2025 Calendario DOR-DEW. All rights reserved.</p>
+            <p>&copy; 2025 Calendario DOR-DEW. Todos los derechos reservados.</p>
             <div className="col-md-3">
                 <ul className="list-unstyled flex justify-center gap-4 mt-4">
                     <li className="w-20">

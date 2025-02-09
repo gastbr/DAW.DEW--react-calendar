@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router';
 import { EventProvider } from './context/eventContext.jsx';
-import CalendarApp from './calendarApp.jsx';
+import CalendarApp from './CalendarApp.jsx';
 
 const App = () => {
   return (
